@@ -11,6 +11,8 @@ import {
 } from "@mui/material";
 import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
 import { useState } from "react";
+import { useCreateEmployeeStore } from "../stores/useCreateEmployeeStore";
+import CreateNewEmployeeDialog from "./Dialogs/CreateNewEmployeeDialog";
 
 const employees = [
   {
@@ -76,6 +78,7 @@ const schoolYears = ["All", "2024-2025", "2023-2024"];
 const Employees = () => {
   const [selectedYear, setSelectedYear] = useState("All");
   const [pageSize, setPageSize] = useState(5);
+  const { registerOpen, setRegisterOpen } = useCreateEmployeeStore();
 
   const filteredEmployees =
     selectedYear === "All"
@@ -88,7 +91,7 @@ const Employees = () => {
       headerName: "Photo",
       width: 100,
       sortable: false,
-      
+
       renderCell: (params: GridRenderCellParams) => (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -136,17 +139,19 @@ const Employees = () => {
               ))}
             </Select>
           </FormControl>
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setRegisterOpen(true)}
+          >
             + Create New Employee
           </Button>
         </Box>
       </Box>
-
       {/* Description */}
       <Typography variant="body2" gutterBottom>
         Meet the dedicated professionals behind Zamboanga Chong Hua High School.
       </Typography>
-
       {/* DataGrid */}
       <Box
         sx={{
@@ -175,6 +180,8 @@ const Employees = () => {
           }}
         />
       </Box>
+
+      {registerOpen && <CreateNewEmployeeDialog />}
     </Box>
   );
 };
