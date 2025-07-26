@@ -1,0 +1,42 @@
+export const mockSeniorHighStudents = [
+  {
+    id: 12,
+    name: "鄧超 (Dèng Chāo)",
+    grade: "Grade 11",
+    gender: "Male",
+    status: "Enrolled",
+    imageProfile: "/assets/images/students/boy-toon.jpg",
+  },
+  {
+    id: 13,
+    name: "唐嫣 (Táng Yān)",
+    grade: "Grade 11",
+    gender: "Female",
+    status: "Enrolled",
+    imageProfile: "/assets/images/students/kid-toon.jpg",
+  },
+  {
+    id: 14,
+    name: "林更新 (Lín Gēngxīn)",
+    grade: "Grade 12",
+    gender: "Male",
+    status: "Not Enrolled",
+    imageProfile: "/assets/images/students/boy-toon.jpg",
+  },
+  {
+    id: 15,
+    name: "鄧紫棋 (Dèng Zǐqí)",
+    grade: "Grade 12",
+    gender: "Female",
+    status: "Enrolled",
+    imageProfile: "/assets/images/students/kid-toon.jpg",
+  },
+  {
+    id: 16,
+    name: "王俊凱 (Wáng Jùnkǎi)",
+    grade: "Grade 12",
+    gender: "Male",
+    status: "Enrolled",
+    imageProfile: "/assets/images/students/boy-toon.jpg",
+  },
+];
