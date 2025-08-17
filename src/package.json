@@ -20,6 +20,8 @@
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-signature-canvas": "^1.1.0-alpha.2",
+    "react-toastify": "^11.0.5",
     "recharts": "^3.0.2",
     "styled-components": "^6.1.19",
     "swr": "^2.3.4",

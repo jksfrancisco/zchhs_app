@@ -1,30 +1,36 @@
 import { create } from "zustand";
 
-
 interface Employee {
-  id: number;
+  idNumber: string;
   firstName: string;
   middleName: string;
   lastName: string;
+  staffChiName: string;
+  birthDate: string;
+  birthPlace: string;
   sex: string;
+  address: string;
+  telNumber: string;
+  cellNumber: string;
+  contactPerson: string;
+  contactAddress: string;
+  contactNumber: string;
+  sssNumber: string;
+  philHealth: string;
+  tin: string;
+  sssCoverage: string;
 }
 
-interface CreateEnrollment {
+interface CreateEmployeeState {
   registerOpen: boolean;
-  setRegisterOpen: (registerOpen: boolean) => void;
+  setRegisterOpen: (open: boolean) => void;
   employeeRow: Employee[];
-  setEmployeeRow: (employeeRow: Employee[]) => void;
+  setEmployeeRow: (rows: Employee[]) => void;
 }
 
-export const useCreateEmployeeStore = create<CreateEnrollment>()(
-  (set) => ({
-    registerOpen: false,
-    employeeRow: [],
-    setRegisterOpen: (registerOpen: boolean) => {
-      set({ registerOpen });
-    },
-    setEmployeeRow: (employeeRow: Employee[]) => {
-      set({ employeeRow });
-    },
-  })
-);
+export const useCreateEmployeeStore = create<CreateEmployeeState>((set) => ({
+  registerOpen: false,
+  employeeRow: [],
+  setRegisterOpen: (open) => set({ registerOpen: open }),
+  setEmployeeRow: (rows) => set({ employeeRow: rows }),
+}));

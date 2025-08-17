@@ -16,7 +16,7 @@ COPY ./src ./
 # Build Next.js app
 RUN yarn build
 
-# Expose default Next.js port (3000)
+# Expose default Next.js port (4203)
 EXPOSE 4203
 
 # Start app

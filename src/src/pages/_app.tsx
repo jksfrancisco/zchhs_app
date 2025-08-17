@@ -9,7 +9,9 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
+import { ToastContainer } from "react-toastify";
 import { SWRConfig } from "swr";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   const mode = useThemeStore((state) => state.mode);
@@ -24,26 +26,18 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch("http://localhost:8000/users", {
-          credentials: "include",
-        });
-        
-        if (res.ok) {
-          if (isPublicRoute) {
-            router.replace("/dashboard");
-          } else {
-            setAuthChecked(true);
-          }
+        await fetcher("/users", { credentials: "include" });
+
+        // If request succeeds
+        if (isPublicRoute) {
+          router.replace("/dashboard");
         } else {
-          // Not logged in
-          if (!isPublicRoute) {
-            router.replace("/login");
-          } else {
-            setAuthChecked(true);
-          }
+          setAuthChecked(true);
         }
-      } catch (err) {
+      } catch (err: any) {
         console.error("Auth check failed:", err);
+
+        // Not logged in or error occurred
         if (!isPublicRoute) {
           router.replace("/login");
         } else {
@@ -56,15 +50,18 @@ export default function App({ Component, pageProps }: AppProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
-  if (!authChecked) return <AppLoader/>;
-  
+  if (!authChecked) return <AppLoader />;
+
   const isNoDrawer = publicRoutes.includes(router.pathname);
 
   return (
     <>
       <Head>
         <title>Student Profile System | ZCHHS</title>
-        <meta name="description" content="Student and teacher management system" />
+        <meta
+          name="description"
+          content="Student and teacher management system"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/assets/images/zchhs.png" />
       </Head>
@@ -81,6 +78,9 @@ export default function App({ Component, pageProps }: AppProps) {
               <Component {...pageProps} />
             </MiniDrawer>
           )}
+          
+          {/* Toast container for notifications */}
+          <ToastContainer position="top-right" autoClose={3000} />
         </ThemeProvider>
       </SWRConfig>
     </>

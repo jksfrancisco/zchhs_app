@@ -32,6 +32,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import * as React from "react";
+import { toast } from "react-toastify";
 
 const drawerWidth = 240;
 
@@ -158,20 +159,19 @@ export default function MiniDrawer({
       });
 
       if (res.ok) {
-        console.log("✅ Logout successful");
+        toast.info("Logged out successfully!");
         // Redirect or reset state
         router.push("/login");
       } else {
-        console.error("❌ Logout failed");
+        console.error("Logout failed");
       }
     } catch (err) {
-      console.error("❌ Network error:", err);
+      console.error("Network error:", err);
     } finally {
-      setIsLoggingOut(false); // hide backdrop just in case
+      setIsLoggingOut(false);
     }
   };
 
-  // Utility function to get cookie value
   const getCookie = (name: string) => {
     const match = document.cookie.match(
       new RegExp("(^| )" + name + "=([^;]+)")

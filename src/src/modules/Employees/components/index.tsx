@@ -13,6 +13,7 @@ import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useCreateEmployeeStore } from "../stores/useCreateEmployeeStore";
 import CreateNewEmployeeDialog from "./Dialogs/CreateNewEmployeeDialog";
+import { toast } from "react-toastify";
 
 const employees = [
   {
@@ -170,10 +171,6 @@ const Employees = () => {
           pagination
           disableSelectionOnClick
           sx={{
-            // "& .MuiDataGrid-columnHeaders": {
-            //   backgroundColor: "primary.main",
-            //   color: "white",
-            // },
             "& .MuiDataGrid-row:hover": {
               backgroundColor: "action.hover",
             },

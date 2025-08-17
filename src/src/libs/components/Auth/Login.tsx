@@ -22,6 +22,7 @@ import { useThemeStore } from "@/libs/stores/useThemeStore";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const theme = useTheme();
@@ -74,6 +75,7 @@ const Login = () => {
 
       if (res.ok) {
         router.push("/dashboard");
+        toast.success("Logged in successfully!");
       } else {
         console.error("Login failed:", data.message);
         setError(true);

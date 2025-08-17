@@ -1,25 +1,42 @@
-// src/libs/swr/fetcher.ts
+import { toast } from "react-toastify";
+
+interface ErrorResponse {
+  message?: string;
+  [key: string]: unknown;
+}
 
 interface FetchError extends Error {
-  info?: unknown;
+  info?: ErrorResponse | null;
   status?: number;
 }
 
-export const fetcher = async (url: string): Promise<unknown> => {
+export const fetcher = async (
+  url: string,
+  _opts?: { credentials?: string }
+): Promise<unknown> => {
   const res = await fetch(`http://localhost:8000${url}`, {
     credentials: "include",
   });
 
   if (!res.ok) {
-    const error: FetchError = new Error("An error occurred while fetching the data.");
+    let data: ErrorResponse | null = null;
+
     try {
-      error.info = await res.json();
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        data = (await res.json()) as ErrorResponse;
+      } else {
+        data = { message: await res.text() };
+      }
     } catch {
-      error.info = null;
+      data = null;
     }
-    error.status = res.status;
-    throw error;
+    throw res.statusText;
   }
 
-  return res.json();
+  const contentType = res.headers.get("content-type");
+  if (contentType && contentType.includes("application/json")) {
+    return res.json();
+  }
+  return res.text();
 };
